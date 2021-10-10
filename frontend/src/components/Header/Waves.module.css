@@ -1,0 +1,35 @@
+.waves {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  background: transparent;
+  margin-bottom: -12px;
+}
+
+.waves .wave {
+  height: 20px;
+  background: #fff;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  padding: 12px 90px;
+}
+
+.waves .wave:first-child {
+  width: 20%;
+} 
+
+.waves .wave:last-child {
+  width: 80%;
+} 
+
+@media screen and (max-width: 767px) {
+  .waves {
+    width: 100%;
+  }
+
+  .waves .wave {
+    padding: 0px;
+    width: 100%;
+  }
+
+}

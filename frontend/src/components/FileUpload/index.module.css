@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+
+.wrapper .item {
+  width: 40%;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  margin: 0px 20px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta {
+  width: 400px;
+  margin-top: 12px;
+}

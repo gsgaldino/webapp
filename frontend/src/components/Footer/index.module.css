@@ -1,0 +1,39 @@
+.footer {
+  padding: 20px 0px;
+}
+
+.footer .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.nav a,
+.item a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  margin: 4px 0px;
+}
+
+.nav a:hover,
+.item a:hover {
+  text-decoration: underline;
+}
+
+.posFooter {
+  border-top: 1px solid var(--primary-color);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.posFooter p {
+  color: var(--primary-color);
+  margin-top: 10px;
+  font-size: small;
+}
