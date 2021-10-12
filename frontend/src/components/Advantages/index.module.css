@@ -27,3 +27,23 @@
   text-align: center;
   margin: 20px 0px;
 }
+
+.wrapper .item img {
+  height: 110px;
+}
+
+.wrapper .item:last-child img {
+  padding: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .wrapper {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .wrapper .item {
+    width: 100%;
+    margin: 20px 0px;
+  }
+}

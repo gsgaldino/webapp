@@ -27,13 +27,36 @@
 }
 
 .posFooter {
-  border-top: 1px solid var(--primary-color);
+  border-top: .5px solid #dcdce6;
   margin-top: 10px;
-  text-align: center;
 }
 
 .posFooter p {
   color: var(--primary-color);
   margin-top: 10px;
   font-size: small;
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 10px;
+  }
+
+  .footer .wrapper {
+    flex-direction: column;
+    margin: 20px 0px;
+  }
+
+  .footer .wrapper .item {
+    margin: 10px 0px;
+  }
+
+  .nav a,
+  .item a {
+    margin: 10px 0px;
+  }
+
+  .logo {
+    margin: 10px 0px;
+  }
 }

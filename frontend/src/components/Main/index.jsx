@@ -7,7 +7,7 @@ export default function Main() {
     <div className={styles.main}>
       <Provider>
 
-        <h3>Tenha o seu documento traduzido, sem dores de cabeça e de forma <span>automática</span>.</h3>
+        <h3>Tenha o seu documento traduzido, sem dores de cabeça e de forma <span>automatizada</span>.</h3>
         <p>Selecione o idioma e envie seu arquivo para um orçamento 100% gratuito!</p>
 
       </Provider>

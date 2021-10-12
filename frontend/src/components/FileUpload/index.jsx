@@ -27,8 +27,8 @@ export default function FileUpload() {
     event.preventDefault();
 
     if (!file)
-      return alert("Você deve selecionar um arquivo primeiro!")
-      
+      return alert("Você deve selecionar um arquivo primeiro!");
+
     setLoading(true);
     try {
       const formData = new FormData();
@@ -111,21 +111,10 @@ export default function FileUpload() {
         </div>
       </div>
 
-      {/* <form onSubmit={onSubmit}>
-        <input type="file" name="fileUpload" ref={fileRef} />
-        <input type="submit" />
-      </form> */}
       <div className={styles.inputWrapper}>
-        <label
-          htmlFor="contained-button-file"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            margin: "10px 0px"
-          }}
-        >
+        <label htmlFor="contained-button-file" className={styles.containerBtn}>
           <Input
-            accept="image/*"
+            accept="application/pdf"
             id="contained-button-file"
             type="file"
             name="fileUpload"
@@ -137,15 +126,12 @@ export default function FileUpload() {
           <Button
             variant="outlined"
             component="span"
-            style={{
-              borderColor: "var(--white)",
-              color: "var(--white)",
-              width: "400px"
-            }}
+            color="primary"
+            className={styles.cta}
           >
             escolher arquivo
           </Button>
-          <p style={{ marginLeft: "10px" }}>{file?.name}</p>
+          <p>{file?.name}</p>
         </label>
 
         <div className={styles.cta}>
@@ -153,8 +139,11 @@ export default function FileUpload() {
             variant="contained"
             color="secondary"
             onClick={onSubmit}
-            fullWidth
             loading={loading}
+            fullWidth
+            style={{
+              color: 'var(--white)',
+            }}
           >upload pdf</LoadingButton>
         </div>
       </div>

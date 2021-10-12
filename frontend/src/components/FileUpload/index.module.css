@@ -21,7 +21,66 @@
   align-items: center;
 }
 
+.inputWrapper p {
+  margin-left: 10px;
+  display: block;
+}
+
 .cta {
-  width: 400px;
-  margin-top: 12px;
+  width: 300px;
+  margin: 24px 0px;
+  position: relative;
+}
+
+.containerBtn p {
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .fileUpload {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .wrapper .item {
+    width: 100%;
+  }
+
+  .arrow {
+    margin: 14px auto;
+  }
+
+  .cta {
+    width: 100%;
+    margin: 10px 0px;
+  }
+
+  .containerBtn {
+    width: 100%;
+  }
+
+  .containerBtn p {
+    position: relative;
+    bottom: 0;
+    margin: 0px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  .inputWrapper p {
+    margin: 10px 0px;
+    padding: 0px 10px;
+  }
+
+  .chooseFileButton {
+    width: 100%;
+  }
 }
