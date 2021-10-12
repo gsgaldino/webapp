@@ -19,7 +19,7 @@ export default function Header() {
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.item}>
-            <a href="#">
+            <a href="/">
               <img
                 src={logo}
                 alt="mais traduções"

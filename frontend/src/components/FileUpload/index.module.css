@@ -33,8 +33,7 @@
 }
 
 .containerBtn p {
-  position: absolute;
-  bottom: 180px;
+  position: relative;
 }
 
 @media screen and (max-width: 767px) {
