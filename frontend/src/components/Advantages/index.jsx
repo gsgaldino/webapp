@@ -1,6 +1,9 @@
 import Provider from '../Provider';
 
 import icon from '../../assets/component.svg';
+import checkIcon from '../../assets/check-icon.svg';
+import taxasIcon from '../../assets/taxas.svg';
+
 import styles from './index.module.css';
 
 export default function Advantages() {
@@ -14,7 +17,7 @@ export default function Advantages() {
         <div className={styles.wrapper}>
 
           <div className={styles.item}>
-            <img src={icon} alt="icon" />
+            <img src={taxasIcon} alt="icon" />
             <div className={styles.text}>
               <p>A melhor taxa do mercado</p>
             </div>
@@ -28,7 +31,7 @@ export default function Advantages() {
           </div>
 
           <div className={styles.item}>
-            <img src={icon} alt="icon" />
+            <img src={checkIcon} alt="icon" />
             <div className={styles.text}>
               <p>Processos 100% automatizados</p>
             </div>

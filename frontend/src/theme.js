@@ -3,13 +3,10 @@ import { createTheme } from '@mui/material/styles';
 export default createTheme({
   "palette": {
     "primary": {
-      "light": "#7986cb",
-      "main": "rgba(89, 165, 216, 1)",
-      "dark": "#303f9f",
-      "contrastText": "#fff"
+      "main": "#F7FFF6"
     },
     "secondary": {
-      "main": "rgba(244, 96, 54, 1)",
+      "main": "rgb(255, 136, 17)",
     },
     "error": {
       "light": "#e57373",

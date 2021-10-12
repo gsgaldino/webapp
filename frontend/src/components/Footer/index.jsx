@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <div className={styles.footer}>
       <Provider>
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="logo" className={styles.logo}/>
         <div className={styles.wrapper}>
           <div className={styles.item}>
             <nav className={styles.nav}>

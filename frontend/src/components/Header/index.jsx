@@ -19,11 +19,13 @@ export default function Header() {
       <div className={styles.header}>
         <div className={styles.wrapper}>
           <div className={styles.item}>
-            <img
-              src={logo}
-              alt="mais traduções"
-              className={styles.logo}
-            />
+            <a href="#">
+              <img
+                src={logo}
+                alt="mais traduções"
+                className={styles.logo}
+              />
+            </a>
           </div>
           <div className={styles.item}>
             <img
@@ -35,7 +37,7 @@ export default function Header() {
             <nav className={styles.menu}>
               {["quem somos", "vantagens", "orçamento", "contato"].map(item => (
                 <a
-                  href={`#${item}`}
+                  href={`#${item.replace(' ', '-')}`}
                   key={item}
                 >
                   {item}
