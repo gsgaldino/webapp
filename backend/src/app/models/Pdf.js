@@ -63,29 +63,37 @@ class Pdf {
 
   };
 
+  /**
+   * Faz o parse de um arquivo PDF e retorna todos as frases e a sua tradução
+   * @returns {Array} de objetos com as frases
+   */
   getTranslation() {
     return new Promise((resolve, reject) => {
 
       this.parse().then(result => {
-        let response = [];
+        let oldPhrases = [];
+        let translatedPhrases = [];
 
         result.forEach(textArray => {
           textArray.forEach(async text => {
-            const old = decodeURIComponent(text).trim();
-            const translated = Translator.translate(old, {});
+            const oldPhrase = decodeURIComponent(text).trim();
 
-            response.push({ old, translated });
-          })
-        })
+            oldPhrases.push(oldPhrase);
+            translatedPhrases.push(Translator.translate(oldPhrase, {}));
+          });
+        });
 
-        Promise.all(response.map(item => item.translated)).then(values => {
-          resolve(values.map((item, index) => {
-            return { translated: item, old: response[index].old }
+        Promise.all(translatedPhrases).then(values => {
+          const bothPhrases = values.map((translated, index) => ({
+            translated: translated,
+            old: oldPhrases[index]
           }));
+
+          resolve(bothPhrases);
         });
       });
     });
-  }
+  };
 
   /**
    * Pega todos os textos de um PDF e retorna em forma de array
