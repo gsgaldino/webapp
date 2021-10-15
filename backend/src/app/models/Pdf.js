@@ -37,26 +37,29 @@ class Pdf {
         const {name, type, size, path} = files.fileUpload;
         console.log(`Uploading file "${name}" type:${type} and size:${size} bytes`);
 
+        // Rodamos esse changePath para jogar o path do arquivo um escopo pra fora para conseguirmos acessa-lo
         this.changePath(path);
         resolve(path);
       });
     })
-
   };
 
   translate(language) {
 
     this.getTranslation().then(result => {
-
-      result.forEach(phrase => {
-        const toChange = {
-          oldPhrase: phrase.old,
-          newPhrase: 'yo'
-        };
-
-        this.changePhrase(toChange);
-      })
+      console.log(result);
     });
+    // this.getTranslation().then(result => {
+
+    //   result.forEach(phrase => {
+    //     const toChange = {
+    //       oldPhrase: phrase.old,
+    //       newPhrase: 'yo'
+    //     };
+
+    //     this.changePhrase(toChange);
+    //   })
+    // });
 
   };
 
@@ -67,18 +70,27 @@ class Pdf {
         let response = [];
 
         result.forEach(textArray => {
-          textArray.forEach(text => {
-            response.push({
-              old: decodeURIComponent(text).trim(),
-            })
+          textArray.forEach(async text => {
+            const old = decodeURIComponent(text).trim();
+            const translated = Translator.translate(old, {});
+
+            response.push({ old, translated });
           })
         })
 
-        resolve(response);
-      })
-    })
+        Promise.all(response.map(item => item.translated)).then(values => {
+          resolve(values.map((item, index) => {
+            return { translated: item, old: response[index].old }
+          }));
+        });
+      });
+    });
   }
 
+  /**
+   * Pega todos os textos de um PDF e retorna em forma de array
+   * @returns {Array} de arrays (cada array uma página do PDF)
+   */
   parse() {
     return new Promise((resolve, reject) => {
 

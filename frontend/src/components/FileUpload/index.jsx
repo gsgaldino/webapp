@@ -8,6 +8,7 @@ import {
   Input
 } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useDialog } from '../../context/DialogContext';
 
 import arrowIcon from '../../assets/arrow-rotation.svg';
 import styles from './index.module.css';
@@ -40,6 +41,7 @@ const availableLanguages = [
 export default function FileUpload() {
   const [loading, setLoading] = React.useState(false);
   const [file, setFile] = React.useState();
+  const { isOpen, setIsOpen } = useDialog();
   const [languages, setLanguages] = React.useState({
     entry: "",
     out: ""
