@@ -30,29 +30,31 @@ export default function Form() {
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <TextField
-                type="text"
                 label="Nome e sobrenome"
-                fullWidth
-                variant="filled"
-                filled
-                margin="dense"
                 onChange={handleChange}
                 name="nome_completo"
-                required
                 style={inputStyle}
+                variant="filled"
+                margin="dense"
+                type="text"
+                fullWidth
+                required
+                filled
+                color="secondary"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                type="email"
-                label="E-mail"
-                fullWidth
+                onChange={handleChange}
+                style={inputStyle}
                 variant="filled"
                 margin="dense"
-                style={inputStyle}
-                onChange={handleChange}
+                label="E-mail"
+                type="email"
                 name="email"
+                fullWidth
                 required
+                color="secondary"
               />
             </Grid>
             <Grid item xs={6} pr={0.5}>
@@ -66,6 +68,7 @@ export default function Form() {
                 onChange={handleChange}
                 name="city"
                 required
+                color="secondary"
               />
             </Grid>
             <Grid item xs={6} pl={0.5}>
@@ -79,6 +82,7 @@ export default function Form() {
                 onChange={handleChange}
                 name="mobilephone"
                 required
+                color="secondary"
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,6 +98,7 @@ export default function Form() {
                 name="mensagem"
                 style={inputStyle}
                 required
+                color="secondary"
               />
             </Grid>
 

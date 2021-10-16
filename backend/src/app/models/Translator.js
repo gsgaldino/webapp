@@ -14,20 +14,12 @@ class Translator {
     if (typeof options !== "object")
       throw new Error("O parâmetro options deve ser um objeto");
 
-
-    function normalizeText(text) {
-      const normalized = decodeURI(text);
-
-      return normalized;
-    };
-
-    const normalizedText = normalizeText(text);
+    const normalizedText = decodeURI(text);
 
     const response = await translatte(normalizedText, { to: 'pt' })
-      .then(res => response = res.text)
-      .catch(err => response = err);
+      .then(res => res.text)
+      .catch(err => { throw err });
 
-    console.log(response);
     return response;
   }
 

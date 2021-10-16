@@ -8,16 +8,40 @@ import {
   Input
 } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useDialog } from '../../context/DialogContext';
 
 import arrowIcon from '../../assets/arrow-rotation.svg';
 import styles from './index.module.css';
 
-const ENDPOINT = "http://localhost:9032/api/pdf/upload";
-const METHOD = "POST";
+import api from '../../services/api';
+
+const availableLanguages = [
+  {
+    language: 'Português (Brasil)',
+    prefix: 'pt-br'
+  },
+  {
+    language: 'Espanhol',
+    prefix: 'es'
+  },
+  {
+    language: 'Inglês',
+    prefix: 'us'
+  },
+  {
+    language: 'Italiano',
+    prefix: 'it'
+  },
+  {
+    language: 'Chinês',
+    prefix: 'ch'
+  }
+];
 
 export default function FileUpload() {
   const [loading, setLoading] = React.useState(false);
   const [file, setFile] = React.useState();
+  const { isOpen, setIsOpen } = useDialog();
   const [languages, setLanguages] = React.useState({
     entry: "",
     out: ""
@@ -29,27 +53,26 @@ export default function FileUpload() {
     if (!file)
       return alert("Você deve selecionar um arquivo primeiro!");
 
-    setLoading(true);
+    const formData = new FormData();
+    formData.append('fileUpload', file);
+
     try {
-      const formData = new FormData();
-
-      formData.append('fileUpload', file);
-
-      const response = await fetch(ENDPOINT, {
-        method: METHOD,
+      const response = await fetch("http://localhost:3333/api/pdf/upload", {
+        method: "POST",
         body: formData
       });
-      console.log(response);
-      setLoading(false);
+
+      const data = await response.json();
+      if (data.success) {
+        alert('success!');
+      };
+
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      throw error;
     }
   };
 
-  const handleFileInputChange = event => {
-    setFile(event.target.files[0]);
-  };
+  const handleFileInputChange = e => setFile(e.target.files[0]);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -63,14 +86,14 @@ export default function FileUpload() {
   const selectStyles = {
     background: "#fff",
     borderRadius: "4px"
-  }
+  };
 
   return (
     <div className={styles.fileUpload}>
 
       <div className={styles.wrapper}>
         <div className={styles.item}>
-          <FormControl variant="filled" fullWidth color="primary">
+          <FormControl variant="filled" fullWidth color="secondary">
             <InputLabel>Seleciona o idioma do arquivo</InputLabel>
             <Select
               value={languages?.entry}
@@ -79,9 +102,11 @@ export default function FileUpload() {
               label="Selecione o idioma do arquivo"
               style={selectStyles}
             >
-              <MenuItem value={"pt-br"}>Português (Brasil)</MenuItem>
-              <MenuItem value={"usa"}>English</MenuItem>
-              <MenuItem value={"es"}>Espanhol</MenuItem>
+              {
+                availableLanguages.map(item => (
+                  <MenuItem value={item.prefix}>{item.language}</MenuItem>
+                ))
+              }
             </Select>
           </FormControl>
         </div>
@@ -94,7 +119,7 @@ export default function FileUpload() {
         </div>
 
         <div className={styles.item}>
-          <FormControl variant="filled" color="primary" fullWidth>
+          <FormControl variant="filled" color="secondary" fullWidth>
             <InputLabel>Seleciona o idioma de tradução</InputLabel>
             <Select
               value={languages?.out}
@@ -103,9 +128,11 @@ export default function FileUpload() {
               label="Selecione o idioma de tradução"
               style={selectStyles}
             >
-              <MenuItem value={"pt-br"}>Português (Brasil)</MenuItem>
-              <MenuItem value={"usa"}>English</MenuItem>
-              <MenuItem value={"es"}>Espanhol</MenuItem>
+              {
+                availableLanguages.map(item => (
+                  <MenuItem value={item.prefix}>{item.language}</MenuItem>
+                ))
+              }
             </Select>
           </FormControl>
         </div>
