@@ -13,7 +13,7 @@ import { useDialog } from '../../context/DialogContext';
 import arrowIcon from '../../assets/arrow-rotation.svg';
 import styles from './index.module.css';
 
-import api from '../../services/api';
+// import api from '../../services/api';
 
 const availableLanguages = [
   {
@@ -39,9 +39,9 @@ const availableLanguages = [
 ];
 
 export default function FileUpload() {
-  const [loading, setLoading] = React.useState(false);
+  const [loading] = React.useState(false);
   const [file, setFile] = React.useState();
-  const { isOpen, setIsOpen } = useDialog();
+  // const { isOpen, setIsOpen } = useDialog();
   const [languages, setLanguages] = React.useState({
     entry: "",
     out: ""
