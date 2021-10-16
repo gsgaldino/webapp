@@ -34,7 +34,7 @@ class Pdf {
       form.parse(this._request, (err, fields, files) => {
         if (err) throw new Error('Error parsing pdf file');
 
-        const {name, type, size, path} = files.fileUpload;
+        const { name, type, size, path } = files.fileUpload;
         console.log(`Uploading file "${name}" type:${type} and size:${size} bytes`);
 
         // Rodamos esse changePath para jogar o path do arquivo um escopo pra fora para conseguirmos acessa-lo
@@ -47,19 +47,9 @@ class Pdf {
   translate(language) {
 
     this.getTranslation().then(result => {
-      console.log(result);
+
+      this.changePhrases(result);
     });
-    // this.getTranslation().then(result => {
-
-    //   result.forEach(phrase => {
-    //     const toChange = {
-    //       oldPhrase: phrase.old,
-    //       newPhrase: 'yo'
-    //     };
-
-    //     this.changePhrase(toChange);
-    //   })
-    // });
 
   };
 
@@ -112,30 +102,38 @@ class Pdf {
     });
   }
 
-  changePhrase({ oldPhrase, newPhrase }) {
+  changePhrases(phrasesArray) {
     fs.readFile(this._path, (err, data) => {
-      let string = Buffer.from(data).toString();
-      var characters = String(oldPhrase);
-      var match = [];
-      for (var a = 0; a < characters.length; a++) {
-        match.push('(-?[0-9]+)?(\\()?' + characters[a] + '(\\))?');
-      }
+      if (err)
+        throw err;
 
-      string = string.replace(new RegExp(match.join('')), function (m, m1) {
-        // m1 holds the first item which is a space
-        return m1 + '( ' + newPhrase + ')';
+      let string = Buffer.from(data).toString();
+
+      phrasesArray.forEach(item => {
+        let characters = String(item.old);
+
+        let match = [];
+        for (let i = 0; i < characters.length; i++) {
+          match.push('(-?[0-9]+)?(\\()?' + characters[i] + '(\\))?');
+        };
+
+        string = string.replace(new RegExp(match.join('')), function (m, m1) {
+          // m1 holds the first item which is a space
+          return item.translated;
+        });
       });
 
       fs.writeFile(
         `${this.outputDir}/sampleOutput.pdf`,
         Buffer.from(string),
+        'utf-8',
         (err, result) => {
           if (err) console.log(err);
         }
       );
     })
   }
-  
+
   changePath(path) {
     this._path = path;
   };
