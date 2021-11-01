@@ -8,7 +8,8 @@ import {
   Input
 } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useDialog } from '../../context/DialogContext';
+
+// import { useDialog } from '../../context/DialogContext';
 
 import arrowIcon from '../../assets/arrow-rotation.svg';
 import styles from './index.module.css';
@@ -39,6 +40,7 @@ const availableLanguages = [
 ];
 
 export default function FileUpload() {
+  const linkRef = React.useRef();
   const [loading] = React.useState(false);
   const [file, setFile] = React.useState();
   // const { isOpen, setIsOpen } = useDialog();
@@ -47,29 +49,33 @@ export default function FileUpload() {
     out: ""
   });
 
-  const onSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    // TODO - snackbar
 
-    if (!file)
-      return alert("Você deve selecionar um arquivo primeiro!");
+    // if (!file)
+    //   return alert("Você deve selecionar um arquivo primeiro!");
 
-    const formData = new FormData();
-    formData.append('fileUpload', file);
+    // const formData = new FormData();
+    // formData.append('fileUpload', file);
 
-    try {
-      const response = await fetch("http://localhost:3333/api/pdf/upload", {
-        method: "POST",
-        body: formData
-      });
+    // try {
+    //   const response = await fetch("http://localhost:3333/api/pdf/upload", {
+    //     method: "POST",
+    //     body: formData
+    //   });
 
-      const data = await response.json();
-      if (data.success) {
-        alert('success!');
-      };
+    //   const blob = await response.blob();
+    //   const href = window.URL.createObjectURL(blob);
+    //   const a = linkRef.current;
+    //   a.download = 'Traduzido.pdf';
+    //   a.href = href;
+    //   a.click();
+    //   a.href = '';
 
-    } catch (error) {
-      throw error;
-    }
+    // } catch (error) {
+    //   throw error;
+    // }
   };
 
   const handleFileInputChange = e => setFile(e.target.files[0]);
@@ -116,6 +122,7 @@ export default function FileUpload() {
             src={arrowIcon}
             alt="icone setas girando"
           />
+          <a ref={linkRef} href="/" style={{display:"none"}}>insisible</a>
         </div>
 
         <div className={styles.item}>
@@ -165,7 +172,7 @@ export default function FileUpload() {
           <LoadingButton
             variant="contained"
             color="secondary"
-            onClick={onSubmit}
+            onClick={handleSubmit}
             loading={loading}
             fullWidth
             style={{

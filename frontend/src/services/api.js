@@ -12,8 +12,7 @@ class Api {
       method: "POST",
       ...options
     }).then(async data => {
-      console.log(data);
-      return await data.json();
+      return data;
     }).catch(error => {throw error});
   };
 };

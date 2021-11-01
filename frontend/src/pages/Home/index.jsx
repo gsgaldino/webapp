@@ -6,6 +6,8 @@ import Advantages from '../../components/Advantages';
 import Form from '../../components/Form';
 import Footer from '../../components/Footer';
 
+import FormDialog from '../../components/FormDialog';
+
 import arrowDownIcon from '../../assets/arrow-down.svg';
 
 import styles from './index.module.css';
@@ -27,6 +29,7 @@ export default function Home() {
         <Form />
       </Background>
 
+      <FormDialog />
       <Footer />
     </div>
   )
