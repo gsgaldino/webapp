@@ -5,8 +5,11 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Input
+  Input,
+  Snackbar,
+  IconButton
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 // import { useDialog } from '../../context/DialogContext';
@@ -48,9 +51,28 @@ export default function FileUpload() {
     entry: "",
     out: ""
   });
+  const [snackbar, setSnackbar] = React.useState({
+    open: false,
+    message: ""
+  });
+
+  const validateSubmit = () => {
+    // TODO add o restante das validações
+    if (!languages.entry)
+      return setSnackbar({
+        open: true,
+        message: "Informe o idioma de origem."
+      });
+
+    if (!languages.out)
+      return setSnackbar({
+        open: true,
+        message: "Informe o idioma de tradução."
+      });
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    validateSubmit();
     // TODO - snackbar
 
     // if (!file)
@@ -78,6 +100,13 @@ export default function FileUpload() {
     // }
   };
 
+  const handleSnackbarClose = event => {
+    return setSnackbar({
+      ...snackbar,
+      open: false
+    });
+  };
+
   const handleFileInputChange = e => setFile(e.target.files[0]);
 
   const handleChange = event => {
@@ -93,6 +122,22 @@ export default function FileUpload() {
     background: "#fff",
     borderRadius: "4px"
   };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleSnackbarClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleSnackbarClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <div className={styles.fileUpload}>
@@ -122,7 +167,7 @@ export default function FileUpload() {
             src={arrowIcon}
             alt="icone setas girando"
           />
-          <a ref={linkRef} href="/" style={{display:"none"}}>insisible</a>
+          <a ref={linkRef} href="/" style={{ display: "none" }}>insisible</a>
         </div>
 
         <div className={styles.item}>
@@ -182,6 +227,13 @@ export default function FileUpload() {
         </div>
       </div>
 
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message={snackbar.message}
+        action={action}
+      />
     </div>
   );
 };

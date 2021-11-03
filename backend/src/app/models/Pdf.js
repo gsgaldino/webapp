@@ -46,9 +46,14 @@ class Pdf {
 
   translate(language) {
 
-    this.getTranslation().then(result => {
+    return new Promise((resolve) => {
+      this.getTranslation().then(result => {
 
-      this.changePhrases(result);
+        this.changePhrases(result).then(outputDirectory => {
+          resolve(outputDirectory);
+        }).catch(error => console.log(error));
+
+      });
     });
 
   };
@@ -103,34 +108,39 @@ class Pdf {
   }
 
   changePhrases(phrasesArray) {
-    fs.readFile(this._path, (err, data) => {
-      if (err)
-        throw err;
+    return new Promise((resolve, reject) => {
+      fs.readFile(this._path, (err, data) => {
+        if (err)
+          throw err;
 
-      let string = Buffer.from(data).toString();
+        let string = Buffer.from(data).toString();
 
-      phrasesArray.forEach(item => {
-        let characters = String(item.old);
+        phrasesArray.forEach(item => {
+          let characters = String(item.old);
 
-        let match = [];
-        for (let i = 0; i < characters.length; i++) {
-          match.push('(-?[0-9]+)?(\\()?' + characters[i] + '(\\))?');
-        };
+          let match = [];
+          for (let i = 0; i < characters.length; i++) {
+            match.push('(-?[0-9]+)?(\\()?' + characters[i] + '(\\))?');
+          };
 
-        string = string.replace(new RegExp(match.join('')), function (m, m1) {
-          // m1 holds the first item which is a space
-          return item.translated;
+          string = string.replace(new RegExp(match.join('')), function (m, m1) {
+            // m1 holds the first item which is a space
+            return item.translated;
+          });
         });
-      });
 
-      fs.writeFile(
-        `${this.outputDir}/sampleOutput.pdf`,
-        Buffer.from(string),
-        'utf-8',
-        (err, result) => {
-          if (err) console.log(err);
-        }
-      );
+        const outputDirectory = `${this.outputDir}/sampleOutput.pdf`;
+        fs.writeFile(
+          outputDirectory,
+          Buffer.from(string),
+          'utf-8',
+          (err, result) => {
+            if (err) reject(err);
+
+            resolve(outputDirectory);
+          }
+        );
+      })
     })
   }
 

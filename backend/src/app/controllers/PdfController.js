@@ -8,13 +8,12 @@ class PdfController {
   async upload(req, res, next) {
     try {
       const pdf = new Pdf(req);
-      
-      await pdf.save();
-      pdf.translate();
 
-      res.status(200).json({
-        success: true,
+      await pdf.save();
+      pdf.translate().then(outputDirectory => {
+        res.status(200).download(outputDirectory);
       });
+
     } catch (error) {
       next(error);
       console.log(error);
